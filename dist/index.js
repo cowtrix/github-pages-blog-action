@@ -305,13 +305,14 @@ function prepareTheme(configuration) {
                     const contentFilePath = path_1.default.join(postsDir, contentFile);
                     const content = fs_1.default.readFileSync(contentFilePath, 'utf-8');
                     const parsed = (0, front_matter_1.default)(content);
-                    let { title, date, permalink, externalUrl } = parsed.attributes;
+                    let { title, date, permalink, externalUrl, tags } = parsed.attributes;
                     if (!date) {
                         date = (0, dayjs_1.default)().format('ddd, MMMM DD, YYYY');
                     }
                     else {
                         date = (0, dayjs_1.default)(date).format('ddd, MMMM DD, YYYY');
                     }
+                    tags = tags.split(',');
                     const postHtml = htmlConverter.makeHtml(parsed.body);
                     const fullFileName = (permalink || (0, slugify_1.default)(title).toLowerCase()).replace(/^\//, '');
                     const fullFileNameParts = fullFileName.replace(/\/$/, '').split('/');
@@ -323,6 +324,7 @@ function prepareTheme(configuration) {
                     const postMeta = {
                         title,
                         date,
+                        tags,
                         permalink: path_1.default.join('/', nestedPostDir, fileName),
                         externalUrl,
                         html: postHtml
