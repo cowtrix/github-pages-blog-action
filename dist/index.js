@@ -312,7 +312,9 @@ function prepareTheme(configuration) {
                     else {
                         date = (0, dayjs_1.default)(date).format('ddd, MMMM DD, YYYY');
                     }
-                    tags = tags.join(', ');
+                    if (tags) {
+                        tags = tags.join(', ');
+                    }
                     const postHtml = htmlConverter.makeHtml(parsed.body);
                     const fullFileName = (permalink || (0, slugify_1.default)(title).toLowerCase()).replace(/^\//, '');
                     const fullFileNameParts = fullFileName.replace(/\/$/, '').split('/');
